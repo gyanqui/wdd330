@@ -26,3 +26,14 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+//function to take a list of objects and a template and add them to the HTML by DOM
+
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+  const htmlStrings = list.map(templateFn);
+  if (clear) {
+    parentElement.innHTML = "";
+  }
+
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
