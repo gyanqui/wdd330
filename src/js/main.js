@@ -6,4 +6,3 @@ const element = document.querySelector(".product-list");
 const listing = new ProductListing("Tents", dataSource, element);
 
 listing.init();
-
