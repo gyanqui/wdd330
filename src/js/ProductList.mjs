@@ -13,6 +13,7 @@ function productCardTemplate(product) {
         <h3 class="car_brand">${product.Brand.Name}</h3>
         <h2 class="card_name">${product.Name}</h2>
         <p class="product-card_price">$${product.FinalPrice}</p>
+        <span>X<span>
         </a>
         </li>`
     return productCard
