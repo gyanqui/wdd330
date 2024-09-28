@@ -1,4 +1,4 @@
-
+import { renderListWithTemplate } from "./utils.mjs";
 
 //function renderList() {
 //    const htmlStrings = list.map(productCardTemplate);
@@ -8,7 +8,7 @@
 
 function productCardTemplate(product) {
     const productCard = `<li class="product-card"> 
-    <a herf="product_pages/index.html?product=${product.ID}">
+    <a href="product_pages/index.html?product=${product.Id}">
         <img src="${product.Image}" alt="Image of "> 
         <h3 class="car_brand">${product.Brand.Name}</h3>
         <h2 class="card_name">${product.Name}</h2>
