@@ -7,19 +7,25 @@ import { renderListWithTemplate } from "./utils.mjs";
 
 
 function productCardTemplate(product) {
-    const productCard = `<li class="product-card"> 
+    // Added visual discount if any
+    const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
+    let discountAmount = 0;
+    
+    if (isDiscounted) {
+        discountAmount = ((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice * 100).toFixed(0);
+    }
+    
+    return `<li class="product-card"> 
     <a href="product_pages/index.html?product=${product.Id}">
         <img src="${product.Image}" alt="Image of "> 
-        <h3 class="car_brand">${product.Brand.Name}</h3>
+        <h3 class="card_brand">${product.Brand.Name}</h3>
         <h2 class="card_name">${product.Name}</h2>
         <p class="product-card_price">$${product.FinalPrice}</p>
-        <span>X<span>
+        ${isDiscounted ? `<p class="product-card_original_price">Was: $${product.SuggestedRetailPrice}</p>` : ""}
+        ${isDiscounted ? `<p class="product-card_percentage">${discountAmount}% off</p>` : ""}
         </a>
         </li>`
-    return productCard
-
 }
-
 
 export default class ProductListing {
     constructor(category, dataSource, listElement) {
