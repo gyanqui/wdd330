@@ -20,6 +20,14 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+// Function to update the cart count displayed in the backpack icon
+function updateCartCount() {
+  const cartItems = getLocalStorage("cart");
+  const cartCountElement = document.querySelector(".cart-count");
+  const itemCount = cartItems.length;
+  cartCountElement.textContent = itemCount;
+}
+
 function renderCartContents() {
   const cartItems = getLocalStorage("cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
@@ -31,11 +39,10 @@ function renderCartContents() {
       removeFromCart(targetElement);
     });
   });
-  //Array.from(remove).forEach(function (element) { setClick(element, removeFromCart) })
+  updateCartCount();
 }
 
 //handle clicks for remove
-
 function removeFromCart(targetElement) {
   const clickedElement = targetElement.dataset.id;
   const cart = getLocalStorage("cart");
