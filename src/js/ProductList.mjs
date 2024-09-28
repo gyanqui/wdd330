@@ -36,13 +36,14 @@ export default class ProductListing {
 
     async init() {
         const list = await this.dataSource.getData();
-        const filteredProducts = this.filterProduct(list)
-        this.renderList(filteredProducts);
+        const filterList = this.filterList(list)
+        this.renderList(filterList);
     }
 
-    filterProduct(list) {
-        return list.slice(0,4);
+    filterList(list) {
+        return list.slice(0, 4);
     }
+
 
     renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list);
