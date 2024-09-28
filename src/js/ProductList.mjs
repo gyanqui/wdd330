@@ -1,20 +1,15 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
-    return `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${product.Image}"
-      alt="${product.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${product.Name}</h2>
-  </a>
-  <p class="cart-card__color">${product.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${product.FinalPrice}</p>
-</li>`;
+    return `<li class="product-card">
+          <a href="product_pages/index.html?product=${product.Id}">
+          <img src="${product.Image}"
+            alt="Image of ${product.Name}" 
+          />
+          <h3 class="card__brand">${product.Brand.Name}</h3>
+          <h2 class="card__name">${product.Name}</h2>
+          <p class="product-card__price">${product.FinalPrice}</p></a>
+      </li>`;
 }
 
 export default class ProductListing {
@@ -25,14 +20,14 @@ export default class ProductListing {
     }
 
     async init() {
-        const list = await this.getData();
-        // const filteredProducts = this.filterProduct(list)
-        this.renderList(list);
+        const productList = await this.dataSource.getData();
+        const filteredProducts = this.filterProduct(productList)
+        this.renderList(filteredProducts);
     }
 
-    // filterProduct(list) {
-    //     return list.slice(0,4);
-    // }
+    filterProduct(productList) {
+        return productList.slice(0,4);
+    }
 
     renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list);
