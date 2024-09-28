@@ -64,8 +64,6 @@ function totalCart() {
     cartFooter.hidden = true;
   }
   renderCartContents();
-
-  console.log(total);
 }
 
 renderCartContents();
