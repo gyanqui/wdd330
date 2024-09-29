@@ -10,11 +10,11 @@ function productCardTemplate(product) {
     // Added visual discount if any
     const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
     let discountAmount = 0;
-    
+
     if (isDiscounted) {
         discountAmount = ((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice * 100).toFixed(0);
     }
-    
+
     return `<li class="product-card"> 
     <a href="product_pages/index.html?product=${product.Id}">
         <img src="${product.Image}" alt="Image of "> 
@@ -36,12 +36,7 @@ export default class ProductListing {
 
     async init() {
         const list = await this.dataSource.getData();
-        const filterList = this.filterList(list)
-        this.renderList(filterList);
-    }
-
-    filterList(list) {
-        return list.slice(0, 4);
+        this.renderList(list);
     }
 
 
