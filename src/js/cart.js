@@ -40,6 +40,7 @@ function renderCartContents() {
     });
   });
   updateCartCount();
+  totalCart();
 }
 
 //handle clicks for remove
@@ -50,7 +51,7 @@ function removeFromCart(targetElement) {
     return el.Id != clickedElement;
   });
   setLocalStorage("cart", filterd);
-  totalCart();
+  renderCartContents();
 }
 
 function totalCart() {
@@ -65,12 +66,12 @@ function totalCart() {
     });
 
     cartTotal.textContent = `total: $${total.toFixed(2)}`;
-    cartFooter.hidden = false;
-  } else {
+    cartFooter.removeAttribute("hidden");
+  }
+
+  if (items.length == 0) {
     cartFooter.hidden = true;
   }
-  renderCartContents();
 }
 
 renderCartContents();
-totalCart();
