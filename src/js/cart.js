@@ -65,7 +65,7 @@ function totalCart() {
     });
 
     cartTotal.textContent = `total: $${total.toFixed(2)}`;
-    cartFooter.removeAttribute("hidden");
+    cartFooter.hidden = false;
   } else {
     cartFooter.hidden = true;
   }
