@@ -42,14 +42,12 @@ function renderCartContents() {
   var add = document.getElementsByClassName("addBtn");
   var minus = document.getElementsByClassName("minusBtn");
 
-
   Array.from(remove).forEach(function (element) {
     element.addEventListener("click", function (event) {
       const targetElement = event.target;
       removeFromCart(targetElement);
     });
   });
-
 
   Array.from(add).forEach(function (element) {
     element.addEventListener("click", function (event) {
@@ -58,14 +56,12 @@ function renderCartContents() {
     });
   });
 
-
   Array.from(minus).forEach(function (element) {
     element.addEventListener("click", function (event) {
       const targetElement = event.target;
       minusQuantity(targetElement);
     });
   });
-
 
   updateCartCount();
   totalCart();
@@ -86,7 +82,6 @@ function addQuantity(targetElement) {
   var quantity = targetElement.previousElementSibling;
   var add = parseInt(quantity.value) + 1;
   quantity.value = add;
-
 }
 
 function minusQuantity(targetElement) {
@@ -95,11 +90,9 @@ function minusQuantity(targetElement) {
   minus -= 1;
 
   if (minus <= 0) {
-    minus = 1
-
+    minus = 1;
   }
   quantity.value = minus;
-
 }
 
 function totalCart() {
@@ -110,7 +103,6 @@ function totalCart() {
   const cartTotal = document.querySelector(".cart-total");
   if (items.length != 0) {
     items.forEach((item) => {
-
       total += parseFloat(item.FinalPrice);
     });
 
