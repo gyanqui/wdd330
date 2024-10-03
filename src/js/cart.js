@@ -11,10 +11,15 @@ function cartItemTemplate(item) {
   <a href="#">
     <h2 class="card__name">${item.Name}</h2>
   </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__color">${item.Colors[0].ColorName}</p> 
+  <div class="qty-input">
+	<button class="minusBtn" data-action="minus" type="button">-</button>
+	<input class="product-qty" type="number" name="product-qty" min="0" max="10" value="1">
+	<button class="addBtn" data-action="add" type="button">+</button>
+</div>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <span class="remove" data-id="${item.Id}">X<span>
+
 </li>`;
 
   return newItem;
@@ -32,13 +37,32 @@ function renderCartContents() {
   const cartItems = getLocalStorage("cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
   var remove = document.getElementsByClassName("remove");
+  var add = document.getElementsByClassName("addBtn");
+  var minus = document.getElementsByClassName("minusBtn");
+
   Array.from(remove).forEach(function (element) {
     element.addEventListener("click", function (event) {
       const targetElement = event.target;
       removeFromCart(targetElement);
     });
   });
+
+  Array.from(add).forEach(function (element) {
+    element.addEventListener("click", function (event) {
+      const targetElement = event.target;
+      addQuantity(targetElement);
+    });
+  });
+
+  Array.from(minus).forEach(function (element) {
+    element.addEventListener("click", function (event) {
+      const targetElement = event.target;
+      minusQuantity(targetElement);
+    });
+  });
+
   updateCartCount();
   totalCart();
 }
@@ -52,6 +76,23 @@ function removeFromCart(targetElement) {
   });
   setLocalStorage("cart", filterd);
   renderCartContents();
+}
+
+function addQuantity(targetElement) {
+  var quantity = targetElement.previousElementSibling;
+  var add = parseInt(quantity.value) + 1;
+  quantity.value = add;
+}
+
+function minusQuantity(targetElement) {
+  var quantity = targetElement.nextElementSibling;
+  var minus = parseInt(quantity.value);
+  minus -= 1;
+
+  if (minus <= 0) {
+    minus = 1;
+  }
+  quantity.value = minus;
 }
 
 function totalCart() {
