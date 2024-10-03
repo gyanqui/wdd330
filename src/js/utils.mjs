@@ -48,19 +48,19 @@ export function renderWithTemplate(template, parentElement, data, callback) {
 
 export async function loadTemplate(path) {
   const html = await fetch(path);
-  // .then(convertToText);
   const template = await html.text();
   return template;
 }
 
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("../public/partials/header.html");
+  const headerTemplate = await loadTemplate("/partials/header.html");
   const headerElement = document.querySelector("#main-header");
-  const footerTemplate = await loadTemplate("../public/partials/footer.html");
+  const footerTemplate = await loadTemplate("/partials/footer.html");
   const footerElement = document.querySelector("#main-footer");
 
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+  updateCartCount();
 }
 
 // set a listener for both touchend and click
@@ -70,4 +70,11 @@ export function setClick(selector, callback) {
     callback();
   });
   qs(selector).addEventListener("click", callback);
+}
+
+export function updateCartCount() {
+  const cartItems = getLocalStorage("cart");
+  const cartCountElement = document.querySelector(".card-count");
+  const itemCount = cartItems.length;
+  cartCountElement.textContent = cartItems.length;
 }
