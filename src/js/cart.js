@@ -1,4 +1,10 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+} from "./utils.mjs";
+
+loadHeaderFooter();
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -63,7 +69,7 @@ function renderCartContents() {
     });
   });
 
-  updateCartCount();
+  // updateCartCount();
   totalCart();
 }
 
