@@ -33,6 +33,7 @@ export default class ProductDetails {
 
     addToCart() {
         const item = this.product
+        item["quantity"] = 1;
         const shoppingCart = getLocalStorage("cart");
         shoppingCart.push(item);
 

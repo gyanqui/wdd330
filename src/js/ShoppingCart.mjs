@@ -13,9 +13,9 @@ function cartItemTemplate(item) {
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p> 
     <div class="qty-input">
-      <button class="minusBtn" data-action="minus" type="button">-</button>
+      <button class="minusBtn" data-id=${item.Id} type="button">-</button>
       <input class="product-qty" type="number" name="product-qty" min="0" max="10" value="1">
-      <button class="addBtn" data-action="add" type="button">+</button>
+      <button class="addBtn" data-id=${item.Id} type="button">+</button>
   </div>
     <p class="cart-card__price">$${item.FinalPrice}</p>
     <span class="remove" data-id="${item.Id}">X<span>
@@ -39,12 +39,27 @@ function removeFromCart(targetElement) {
 }
 
 function addQuantity(targetElement) {
-    var quantity = targetElement.previousElementSibling;
-    var add = parseInt(quantity.value) + 1;
-    quantity.value = add;
+    const cart = getLocalStorage("cart")
+    const clickedItem = targetElement.dataset.id;
+    var inputQuantity = targetElement.previousElementSibling;
+    var add = parseInt(inputQuantity.value) + 1;
+    inputQuantity.value = add;
+
+    var itemLocated = cart.findIndex(obj => obj.Id == clickedItem);
+    cart[itemLocated].quantity = add;
+
+    setLocalStorage("cart", cart);
+    totalCart();
+
+
+
+
+
 }
 
 function minusQuantity(targetElement) {
+    const cart = getLocalStorage("cart")
+    const clickedItem = targetElement.dataset.id;
     var quantity = targetElement.nextElementSibling;
     var minus = parseInt(quantity.value);
     minus -= 1;
@@ -53,6 +68,12 @@ function minusQuantity(targetElement) {
         minus = 1;
     }
     quantity.value = minus;
+
+    var itemLocated = cart.findIndex(obj => obj.Id == clickedItem);
+    cart[itemLocated].quantity = minus;
+
+    setLocalStorage("cart", cart);
+    totalCart();
 }
 
 
@@ -64,7 +85,7 @@ function totalCart() {
     const cartTotal = document.querySelector(".cart-total");
     if (items.length != 0) {
         items.forEach((item) => {
-            total += parseFloat(item.FinalPrice);
+            total += parseFloat(item.FinalPrice) * item.quantity;
         });
 
         cartTotal.textContent = `total: $${total.toFixed(2)}`;
