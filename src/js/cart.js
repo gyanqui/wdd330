@@ -1,10 +1,17 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+  updateCartCount,
+} from "./utils.mjs";
+
+loadHeaderFooter();
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimaryMedium}"
       alt="${item.Name}"
     />
   </a>
@@ -26,12 +33,6 @@ function cartItemTemplate(item) {
 }
 
 // Function to update the cart count displayed in the backpack icon
-function updateCartCount() {
-  const cartItems = getLocalStorage("cart");
-  const cartCountElement = document.querySelector(".cart-count");
-  const itemCount = cartItems.length;
-  cartCountElement.textContent = itemCount;
-}
 
 function renderCartContents() {
   const cartItems = getLocalStorage("cart");
@@ -62,20 +63,19 @@ function renderCartContents() {
       minusQuantity(targetElement);
     });
   });
-
-  updateCartCount();
-  totalCart();
 }
 
 //handle clicks for remove
 function removeFromCart(targetElement) {
   const clickedElement = targetElement.dataset.id;
   const cart = getLocalStorage("cart");
-  var filterd = cart.filter(function (el) {
+  var filtered = cart.filter(function (el) {
     return el.Id != clickedElement;
   });
-  setLocalStorage("cart", filterd);
+  setLocalStorage("cart", filtered);
   renderCartContents();
+  totalCart();
+  updateCartCount();
 }
 
 function addQuantity(targetElement) {
@@ -116,3 +116,4 @@ function totalCart() {
 }
 
 renderCartContents();
+totalCart();
