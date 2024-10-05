@@ -85,7 +85,7 @@ header {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -141,8 +141,24 @@ button {
   margin: auto;
 }
 
+
 .products {
   padding: 0.5em;
+}
+
+.product-grid {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  color: var(--dark-grey);
+  padding-left: 0;
+}
+
+.product-grid>li {
+  width: 200px;
+  margin: 1em;
 }
 
 .product-list {
