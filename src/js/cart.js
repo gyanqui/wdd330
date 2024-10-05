@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function cartItemTemplate(item) {
@@ -47,3 +48,12 @@ function removeFromCart(targetElement) {
 }
 
 renderCartContents();
+=======
+import ShoppingCart from "./ShoppingCart.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+
+loadHeaderFooter();
+
+const cart = new ShoppingCart("cart", ".product-list");
+cart.displaycart();
+>>>>>>> 4f247f43caef9dc9b4907bf7de6d7b9a1b8a8d58
