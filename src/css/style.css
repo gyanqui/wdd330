@@ -146,9 +146,9 @@ button {
 }
 
 .product-list {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid: gap 50px;
   list-style-type: none;
   padding: 0;
 }
@@ -250,4 +250,10 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+.product-list {
+
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid: gap 50px;
 }
