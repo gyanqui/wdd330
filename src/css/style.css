@@ -196,6 +196,9 @@ button {
 .card__name {
   font-size: 1em;
 }
+.product-card_original_price {
+  text-decoration: line-through;
+}
 
 /* End product list card */
 
