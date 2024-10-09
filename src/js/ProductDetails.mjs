@@ -53,6 +53,19 @@ export default class ProductDetails {
       setLocalStorage("cart", shoppingCart);
       updateCartCount();
     }
+    // Animate the cart icon
+    this.animateCartIcon();
+  }
+
+
+  animateCartIcon() {
+    const cartElement = document.querySelector("div.cart");
+    if (cartElement) {
+      cartElement.style.animation = "none"; // Reset animation
+      // Trigger reflow to restart the animation
+      cartElement.offsetHeight; // This is a hack to force reflow
+      cartElement.style.animation = "shoppingCart 0.35s 5";
+    }
   }
 
   renderProductDetails(selector) {
@@ -60,6 +73,6 @@ export default class ProductDetails {
     element.insertAdjacentHTML(
       "afterBegin",
       productDetailsTemplate(this.product),
-    );
+    )
   }
-}
+};

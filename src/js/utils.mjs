@@ -74,6 +74,6 @@ export function setClick(selector, callback) {
 
 export function updateCartCount() {
   const cartItems = getLocalStorage("cart");
-  const cartCountElement = document.querySelector(".card-count");
+  const cartCountElement = document.querySelector(".cart-count");
   cartCountElement.textContent = cartItems.length;
 }
