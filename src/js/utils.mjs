@@ -16,11 +16,8 @@ export function getLocalStorage(key) {
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
-
 }
 
-<<<<<<< HEAD
-=======
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -67,7 +64,6 @@ export async function loadHeaderFooter() {
   updateCartCount();
 }
 
->>>>>>> 4f247f43caef9dc9b4907bf7de6d7b9a1b8a8d58
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -77,30 +73,8 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener("click", callback);
 }
 
-<<<<<<< HEAD
-export function getParam(param) {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param);
-  return product
-
-}
-
-export function renderListWithTemplate(templateFn,
-  parentElement,
-  list,
-  position = "afterbegin",
-  clear = false) {
-  const htmlStrings = list.map(templateFn)
-  if (clear) {
-    parentElement.innerHTML = ""
-  }
-
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-=======
 export function updateCartCount() {
   const cartItems = getLocalStorage("cart");
-  const cartCountElement = document.querySelector(".card-count");
+  const cartCountElement = document.querySelector(".cart-count");
   cartCountElement.textContent = cartItems.length;
->>>>>>> 4f247f43caef9dc9b4907bf7de6d7b9a1b8a8d58
 }
