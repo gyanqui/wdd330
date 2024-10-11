@@ -8,7 +8,7 @@ function formDataToJson(formElement) {
     convertedJSON = {};
 
   formData.forEach(function (value, key) {
-    converedJSON[key] = value;
+    convertedJSON[key] = value;
   });
 
   return convertedJSON;
