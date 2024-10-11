@@ -19,22 +19,68 @@
   0% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(-5px);
   }
+
   50% {
     transform: translateX(5px);
   }
+
   75% {
     transform: translateX(-5px);
   }
+
   100% {
     transform: translateX(0);
   }
 }
 
+/* For the Call to action popup*/
+
+.popup {
+  width: 600px;
+  background: white;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: #303030;
+  box-shadow: 0 2px 5px rgba(0, 0, 0.2);
+  z-index: 1;
+  visibility: hidden;
+}
+
+.popup h2 {
+  font-size: 38px;
+  font-weight: 500;
+  margin: 30px 0 10px;
+}
+
+.popup button {
+  width: 100%;
+  margin-top: 50px;
+  padding: 10px 0;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0.2);
+}
+
+.open-popup {
+  visibility: visible;
+  top: 50%;
+}
+
+
 .cart {
-  display: inline-block; /* Ensure it can be animated */
+  display: inline-block;
+  /* Ensure it can be animated */
 }
 
 * {
@@ -108,7 +154,7 @@ header {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -188,7 +234,7 @@ button {
   padding-left: 0;
 }
 
-.product-grid > li {
+.product-grid>li {
   width: 200px;
   margin: 1em;
 }
@@ -260,6 +306,7 @@ button {
 .card__name {
   font-size: 1em;
 }
+
 .product-card_original_price {
   text-decoration: line-through;
 }
@@ -348,6 +395,7 @@ span.title {
   margin: 0;
   padding: 5px;
 }
+
 */ p.cart-total {
   padding: 10px;
   margin: 10px;

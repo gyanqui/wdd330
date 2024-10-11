@@ -52,6 +52,7 @@ export default class ProductDetails {
       shoppingCart.push(item);
       setLocalStorage("cart", shoppingCart);
       updateCartCount();
+      alert("added to cart");
     }
     // Animate the cart icon
     this.animateCartIcon();
