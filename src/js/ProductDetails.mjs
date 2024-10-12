@@ -44,20 +44,19 @@ export default class ProductDetails {
   }
 
   addToCart() {
-    const shoppingCart = getLocalStorage("cart");
+    const shoppingCart = getLocalStorage("so-cart");
     const item = this.product;
     var itemLocated = shoppingCart.findIndex((obj) => obj.Id == item.Id);
     if (itemLocated == -1) {
       item["quantity"] = 1;
       shoppingCart.push(item);
-      setLocalStorage("cart", shoppingCart);
+      setLocalStorage("so-cart", shoppingCart);
       updateCartCount();
       alert("added to cart");
     }
     // Animate the cart icon
     this.animateCartIcon();
   }
-
 
   animateCartIcon() {
     const cartElement = document.querySelector("div.cart");
@@ -74,6 +73,6 @@ export default class ProductDetails {
     element.insertAdjacentHTML(
       "afterBegin",
       productDetailsTemplate(this.product),
-    )
+    );
   }
-};
+}

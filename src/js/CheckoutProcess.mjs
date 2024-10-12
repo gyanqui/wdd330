@@ -1,9 +1,14 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import {
+  alertMessage,
+  getLocalStorage,
+  removeAllAlerts,
+  setLocalStorage,
+} from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
 
-function formDataToJson(formElement) {
+function formDataToJSON(formElement) {
   const formData = new FormData(formElement),
     convertedJSON = {};
 
@@ -43,13 +48,13 @@ export default class CheckoutProcess {
     this.calculateItemSummary();
   }
 
-  calculateItemSummary(list) {
+  calculateItemSummary() {
     // calculate and display the total amount of the items in the cart, and the number of items.
     const summaryElement = document.querySelector(
-      this.outputSelector + " #cartTotal"
+      this.outputSelector + " #cartTotal",
     );
     const itemNumElement = document.querySelector(
-      this.outputSelector + " #num-items"
+      this.outputSelector + " #num-items",
     );
     itemNumElement.innerText = this.list.length;
     const amounts = this.list.map((item) => item.FinalPrice);
@@ -74,7 +79,7 @@ export default class CheckoutProcess {
     const shipping = document.querySelector(this.outputSelector + " #shipping");
     const tax = document.querySelector(this.outputSelector + " #tax");
     const orderTotal = document.querySelector(
-      this.outputSelector + " #orderTotal"
+      this.outputSelector + " #orderTotal",
     );
     shipping.innerText = "$" + this.shipping;
     tax.innerText = "$" + this.tax;
@@ -84,7 +89,7 @@ export default class CheckoutProcess {
   async checkout() {
     const formElement = document.forms["checkout"];
 
-    const json = formDataToJson(formElement);
+    const json = formDataToJSON(formElement);
     json.orderDate = new Date();
     json.orderTotal = this.orderTotal;
     json.tax = this.tax;
@@ -94,9 +99,13 @@ export default class CheckoutProcess {
     try {
       const res = await services.checkout(json);
       console.log(res);
-      setLocalStorage("cart", []);
-      location.assign("/checkout/success.html")
+      setLocalStorage("so-cart", []);
+      location.assign("/checkout/success.html");
     } catch (err) {
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
       console.log(err);
     }
   }
