@@ -44,13 +44,13 @@ export default class ProductDetails {
   }
 
   addToCart() {
-    const shoppingCart = getLocalStorage("so-cart");
+    const shoppingCart = getLocalStorage("cart");
     const item = this.product;
     var itemLocated = shoppingCart.findIndex((obj) => obj.Id == item.Id);
     if (itemLocated == -1) {
       item["quantity"] = 1;
       shoppingCart.push(item);
-      setLocalStorage("so-cart", shoppingCart);
+      setLocalStorage("cart", shoppingCart);
       updateCartCount();
       alert("added to cart");
     }

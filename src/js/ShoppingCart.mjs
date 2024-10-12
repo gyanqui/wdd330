@@ -1,7 +1,7 @@
 import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
 function cartItemTemplate(item) {
-    const newItem = `<li class="cart-card divider">
+  const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img
         src="${item.Images.PrimaryMedium}"
@@ -22,123 +22,113 @@ function cartItemTemplate(item) {
   
   </li>`;
 
-    return newItem;
+  return newItem;
 }
 
-
 function removeFromCart(targetElement) {
-    const clickedElement = targetElement.dataset.id;
-    const cart = getLocalStorage("cart");
-    var filtered = cart.filter(function (el) {
-        return el.Id != clickedElement;
-    });
-    setLocalStorage("cart", filtered);
-    renderCartContents();
-    totalCart();
-    updateCartCount();
+  const clickedElement = targetElement.dataset.id;
+  const cart = getLocalStorage("cart");
+  var filtered = cart.filter(function (el) {
+    return el.Id != clickedElement;
+  });
+  setLocalStorage("cart", filtered);
+  renderCartContents();
+  totalCart();
+  updateCartCount();
 }
 
 function addQuantity(targetElement) {
-    const cart = getLocalStorage("cart")
-    const clickedItem = targetElement.dataset.id;
-    var inputQuantity = targetElement.previousElementSibling;
-    var add = parseInt(inputQuantity.value) + 1;
-    inputQuantity.value = add;
+  const cart = getLocalStorage("cart");
+  const clickedItem = targetElement.dataset.id;
+  var inputQuantity = targetElement.previousElementSibling;
+  var add = parseInt(inputQuantity.value) + 1;
+  inputQuantity.value = add;
 
-    var itemLocated = cart.findIndex(obj => obj.Id == clickedItem);
-    cart[itemLocated].quantity = add;
+  var itemLocated = cart.findIndex((obj) => obj.Id == clickedItem);
+  cart[itemLocated].quantity = add;
 
-    setLocalStorage("cart", cart);
-    totalCart();
-
-
-
-
-
+  setLocalStorage("cart", cart);
+  totalCart();
 }
 
 function minusQuantity(targetElement) {
-    const cart = getLocalStorage("cart")
-    const clickedItem = targetElement.dataset.id;
-    var quantity = targetElement.nextElementSibling;
-    var minus = parseInt(quantity.value);
-    minus -= 1;
+  const cart = getLocalStorage("cart");
+  const clickedItem = targetElement.dataset.id;
+  var quantity = targetElement.nextElementSibling;
+  var minus = parseInt(quantity.value);
+  minus -= 1;
 
-    if (minus <= 0) {
-        minus = 1;
-    }
-    quantity.value = minus;
+  if (minus <= 0) {
+    minus = 1;
+  }
+  quantity.value = minus;
 
-    var itemLocated = cart.findIndex(obj => obj.Id == clickedItem);
-    cart[itemLocated].quantity = minus;
+  var itemLocated = cart.findIndex((obj) => obj.Id == clickedItem);
+  cart[itemLocated].quantity = minus;
 
-    setLocalStorage("cart", cart);
-    totalCart();
+  setLocalStorage("cart", cart);
+  totalCart();
 }
-
 
 function totalCart() {
-    var items = getLocalStorage("cart");
-    var total = 0.0;
+  var items = getLocalStorage("cart");
+  var total = 0.0;
 
-    const cartFooter = document.querySelector(".cart-footer");
-    const cartTotal = document.querySelector(".cart-total");
-    if (items.length != 0) {
-        items.forEach((item) => {
-            total += parseFloat(item.FinalPrice) * item.quantity;
-        });
+  const cartFooter = document.querySelector(".cart-footer");
+  const cartTotal = document.querySelector(".cart-total");
+  if (items.length != 0) {
+    items.forEach((item) => {
+      total += parseFloat(item.FinalPrice) * item.quantity;
+    });
 
-        cartTotal.textContent = `total: $${total.toFixed(2)}`;
-        cartFooter.removeAttribute("hidden");
-    }
+    cartTotal.textContent = `total: $${total.toFixed(2)}`;
+    cartFooter.removeAttribute("hidden");
+  }
 
-    if (items.length == 0) {
-        cartFooter.hidden = true;
-    }
+  if (items.length == 0) {
+    cartFooter.hidden = true;
+  }
 }
 
-
-
 function renderCartContents() {
-    const cartItems = getLocalStorage("cart");
-    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  const cartItems = getLocalStorage("cart");
+  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  document.querySelector(".product-list").innerHTML = htmlItems.join("");
 
-    var remove = document.getElementsByClassName("remove");
-    var add = document.getElementsByClassName("addBtn");
-    var minus = document.getElementsByClassName("minusBtn");
+  var remove = document.getElementsByClassName("remove");
+  var add = document.getElementsByClassName("addBtn");
+  var minus = document.getElementsByClassName("minusBtn");
 
-    Array.from(remove).forEach(function (element) {
-        element.addEventListener("click", function (event) {
-            const targetElement = event.target;
-            removeFromCart(targetElement);
-        });
+  Array.from(remove).forEach(function (element) {
+    element.addEventListener("click", function (event) {
+      const targetElement = event.target;
+      removeFromCart(targetElement);
     });
+  });
 
-    Array.from(add).forEach(function (element) {
-        element.addEventListener("click", function (event) {
-            const targetElement = event.target;
-            addQuantity(targetElement);
-        });
+  Array.from(add).forEach(function (element) {
+    element.addEventListener("click", function (event) {
+      const targetElement = event.target;
+      addQuantity(targetElement);
     });
+  });
 
-    Array.from(minus).forEach(function (element) {
-        element.addEventListener("click", function (event) {
-            const targetElement = event.target;
-            minusQuantity(targetElement);
-        });
+  Array.from(minus).forEach(function (element) {
+    element.addEventListener("click", function (event) {
+      const targetElement = event.target;
+      minusQuantity(targetElement);
     });
+  });
 }
 
 export default class ShoppingCart {
-    constructor(key, parentSelector) {
-        this.key = key
-        this.parentSelector = parentSelector;
-    }
+  constructor(key, parentSelector) {
+    this.key = key;
+    this.parentSelector = parentSelector;
+  }
 
-    displaycart() {
-        renderCartContents();
-        totalCart();
-    }
+  displaycart() {
+    renderCartContents();
+    totalCart();
+  }
 }
-
