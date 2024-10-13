@@ -79,8 +79,8 @@ export function updateCartCount() {
 }
 
 export function alertMessage(message, scroll = true, duration = 3000) {
-  const alert = document.createElement('div');
-  alert.classList.add('alert');
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
   alert.innerHTMLv = `<p>${message}</p><span>X</span>`;
 
   alert.addEventListener("click", function (e) {
