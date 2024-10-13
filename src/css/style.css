@@ -77,7 +77,6 @@
   top: 50%;
 }
 
-
 .cart {
   display: inline-block;
   /* Ensure it can be animated */
@@ -154,7 +153,7 @@ header {
   margin-top: -1.3em;
 }
 
-.logo--square>div {
+.logo--square > div {
   margin-top: -1.7em;
 }
 
@@ -234,7 +233,7 @@ button {
   padding-left: 0;
 }
 
-.product-grid>li {
+.product-grid > li {
   width: 200px;
   margin: 1em;
 }
@@ -448,8 +447,6 @@ footer {
 .carousel__button--selected {
   background: rgba(57, 22, 22, 0.5);
 }
-
-
 
 /* MOBILE view */
 @media screen and (min-width: 500px) {
