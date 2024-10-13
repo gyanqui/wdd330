@@ -1,4 +1,9 @@
-import { setLocalStorage, getLocalStorage, updateCartCount } from "./utils.mjs";
+import {
+  setLocalStorage,
+  getLocalStorage,
+  updateCartCount,
+  loadHeaderFooter,
+} from "./utils.mjs";
 
 function productDetailsTemplate(product) {
   const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
@@ -53,11 +58,19 @@ export default class ProductDetails {
       setLocalStorage("cart", shoppingCart);
       updateCartCount();
       alert("added to cart");
+    } else {
+      var inputQuantity = shoppingCart[itemLocated].quantity;
+      var add = parseInt(inputQuantity) + 1;
+      inputQuantity = add;
+      shoppingCart[itemLocated].quantity = add;
+      setLocalStorage("cart", shoppingCart);
+      updateCartCount();
+      
+      alert("added to cart");
     }
     // Animate the cart icon
     this.animateCartIcon();
   }
-
 
   animateCartIcon() {
     const cartElement = document.querySelector("div.cart");
@@ -74,6 +87,6 @@ export default class ProductDetails {
     element.insertAdjacentHTML(
       "afterBegin",
       productDetailsTemplate(this.product),
-    )
+    );
   }
-};
+}
